@@ -50,6 +50,9 @@ document.addEventListener("DOMContentLoaded", function(){
         // Mostrar productos
         mostrar_productos()
 
+        // Agregar producto al carrito
+        agregar_item()
+
 
 });
 
@@ -74,6 +77,9 @@ function mostrar_productos (){
         titulo_producto.textContent = producto.nombre;
         titulo_producto.classList.add("titulo_producto");
 
+        let precio_producto = document.createElement("p");
+        precio_producto.textContent = producto.precio ;
+
         let cantidad_producto = document.createElement("input");
         cantidad_producto.innerText = "Cantidad";
         cantidad_producto.classList.add("cantidad_producto");
@@ -84,7 +90,7 @@ function mostrar_productos (){
 
 
         //Agregar productos a la tarjeta
-        div_producto.append(img_producto,titulo_producto,cantidad_producto,btn_comprar);
+        div_producto.append(img_producto,titulo_producto,precio_producto,cantidad_producto,btn_comprar);
         
         // Agregamos productos al DOM
         lista_productos.append(div_producto);
@@ -92,4 +98,12 @@ function mostrar_productos (){
     })
 }
 
-console.log(productos_iva);
+// Función agregar item: genera listado de compra
+function agregar_item (){
+    let boton_comprar = document.querySelectorAll(".btn_comprar");
+    
+    boton_comprar.addEventListener("click", function(){
+        console.log("hola");
+    })
+
+};

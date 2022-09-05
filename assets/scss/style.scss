@@ -4,7 +4,17 @@
     box-sizing: border-box;
 }
 
+.contenedor_productos{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
 .tarjeta{
     display: flex;
     flex-direction: column;
+    width: 300px;
+    img{
+        margin: auto;
+    }
 }
