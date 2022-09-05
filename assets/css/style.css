@@ -1,0 +1,12 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.tarjeta {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+/*# sourceMappingURL=style.css.map */
