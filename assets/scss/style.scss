@@ -6,15 +6,15 @@
 
 .contenedor_productos{
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap:wrap;
     justify-content: space-evenly;
 }
 
 .tarjeta{
     display: flex;
     flex-direction: column;
-    width: 200px;
-    margin:10px 0px ;
+    width: 100px;
+    margin:10px 10px ;
     img{
         margin: auto;
         max-width: 100%;
