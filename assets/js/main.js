@@ -186,8 +186,6 @@ function agregar_producto(){
         total.innerHTML = ``;
         rubros_lista.innerHTML = ``;
     }
-
-    
 } 
 
 

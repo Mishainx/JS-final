@@ -13,10 +13,12 @@
 .tarjeta {
   display: flex;
   flex-direction: column;
-  width: 300px;
+  width: 200px;
+  margin: 10px 0px;
 }
 .tarjeta img {
   margin: auto;
+  max-width: 100%;
 }
 
 .lista, #rubros_lista {

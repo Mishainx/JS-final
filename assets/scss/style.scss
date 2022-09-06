@@ -13,9 +13,11 @@
 .tarjeta{
     display: flex;
     flex-direction: column;
-    width: 300px;
+    width: 200px;
+    margin:10px 0px ;
     img{
         margin: auto;
+        max-width: 100%;
     }
 }
 
