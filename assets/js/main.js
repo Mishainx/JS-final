@@ -24,7 +24,7 @@ let cont_mat = 0;
 let cont_cinturon = 0;
 let cont_bloque = 0;
 let cont_porta = 0;
-let pedido = "";
+let pedido = 0;
 
 /*Mediante el método map se genera un nuevo array con el valor del producto +IVA.
  El mismo será utilizado para la compra del usuario*/
@@ -43,6 +43,8 @@ function agregar_iva(producto){
 
  let productos_iva = productos.map(agregar_iva);
  let lista_productos = document.getElementById ("contenedor_productos");
+ let orden_compra = document.getElementById ("orden_compra");
+ 
 
 
 document.addEventListener("DOMContentLoaded", function(){
@@ -50,9 +52,8 @@ document.addEventListener("DOMContentLoaded", function(){
         // Mostrar productos
         mostrar_productos()
 
-        // Agregar producto al carrito
-        agregar_item()
-
+        //Agregar item
+        agregar_producto()
 
 });
 
@@ -88,7 +89,6 @@ function mostrar_productos (){
         btn_comprar.innerText = "Comprar";
         btn_comprar.classList.add("btn_comprar");
 
-
         //Agregar productos a la tarjeta
         div_producto.append(img_producto,titulo_producto,precio_producto,cantidad_producto,btn_comprar);
         
@@ -96,14 +96,74 @@ function mostrar_productos (){
         lista_productos.append(div_producto);
 
     })
+
 }
 
-// Función agregar item: genera listado de compra
-function agregar_item (){
-    let boton_comprar = document.querySelectorAll(".btn_comprar");
+//Función agregar_producto: Genera un item en la lista de pedido
+function agregar_producto(){
     
-    boton_comprar.addEventListener("click", function(){
-        console.log("hola");
-    })
+    let botones_comprar = document.querySelectorAll(".btn_comprar");
+    for (let boton of botones_comprar){
+        boton.addEventListener("click", agregar_elemento);
+    }
 
-};
+    function agregar_elemento(e){
+        let hijo = e.target;
+        let padre = hijo.parentNode;
+        if(padre.querySelector("input").value>0){
+
+            let titulo_lista = document.getElementById("titulo_lista");
+            titulo_lista.textContent = "Orden compra";
+
+            let rubros_lista = document.getElementById("rubros_lista");
+            rubros_lista.innerHTML = `<p>Item</p>
+                                      <p>Nombre</p>
+                                      <p>Cantidad</p>
+                                      <p>Precio</p>
+                                      <p>Acción</p>`;   
+
+            let lista = document.createElement("div");
+            lista.classList.add("lista");
+
+            let miniatura = document.createElement("img");
+            miniatura.src= `${padre.querySelector("img").src}`;
+            miniatura.classList.add("miniatura")
+
+            let nombre_item = document.createElement("p");
+            nombre_item.textContent =  `${padre.querySelector("h3").innerText}`;
+
+            let cantidad_item = document.createElement("p");
+            cantidad_item.textContent =  `${padre.querySelector("input").value}`;
+            miniatura.classList.add("cantidad")
+
+
+            let precio_item = document.createElement("p");
+            precio_item.textContent =  `${padre.querySelector("p").innerText}`;
+
+            let boton_borrar = document.createElement("button");
+            boton_borrar.classList.add("borrar");
+            boton_borrar.textContent = "Borrar";
+
+            let total = document.getElementById("total");
+            total.textContent = `Su total es ${resultado()}`;
+
+            orden_compra.append(lista);
+            lista.append(miniatura,nombre_item,cantidad_item,precio_item,boton_borrar);
+
+
+        // Sumar total
+        let listas = document.querySelectorAll(".lista");
+        for (let asd of listas){
+            pedido = pedido + parseInt(padre.querySelector("p").innerText*padre.querySelector("input").value);
+            console.log(pedido);
+
+        }
+
+
+
+        }
+}}
+
+
+
+

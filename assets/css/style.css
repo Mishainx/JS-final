@@ -17,4 +17,20 @@
 }
 .tarjeta img {
   margin: auto;
+}
+
+.lista, #rubros_lista {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+}
+.lista p, #rubros_lista p {
+  width: 30px;
+}
+.lista .miniatura, #rubros_lista .miniatura {
+  width: 30px;
+}
+
+#titulo_lista, #total {
+  text-align: center;
 }/*# sourceMappingURL=style.css.map */

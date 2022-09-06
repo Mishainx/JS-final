@@ -18,3 +18,26 @@
         margin: auto;
     }
 }
+
+.lista{
+    display: flex;
+    justify-content:space-around;
+    text-align: center;
+    p{
+        width: 30px;
+    
+    }
+        
+    .miniatura{
+        width: 30px;
+    }
+
+}
+
+#titulo_lista, #total {
+    text-align: center;
+  }
+
+#rubros_lista{
+    @extend .lista;    
+}
