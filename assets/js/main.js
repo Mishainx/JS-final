@@ -55,14 +55,13 @@ document.addEventListener("DOMContentLoaded", function(){
         //Agregar item
         agregar_producto()
 
+        
+
 });
 
 //Funciones
 
-//Función resultado: determina el total de la compra.
-function resultado(){
-    return((productos_iva[0].precio*cont_mat)+(productos_iva[1].precio*cont_cinturon)+(productos_iva[2].precio*cont_bloque)+(productos_iva[3].precio*cont_porta));
-}
+
 
 //Función mostrar productos: carga productos en el DOM.
 function mostrar_productos (){
@@ -138,31 +137,63 @@ function agregar_producto(){
 
 
             let precio_item = document.createElement("p");
-            precio_item.textContent =  `${padre.querySelector("p").innerText}`;
+            precio_item.textContent =  `${padre.querySelector("p").innerText*padre.querySelector("input").value}`;
 
             let boton_borrar = document.createElement("button");
             boton_borrar.classList.add("borrar");
             boton_borrar.textContent = "Borrar";
 
             let total = document.getElementById("total");
-            total.textContent = `Su total es ${resultado()}`;
+            total.textContent = `Su total es $ ${sumar()}`;
 
             orden_compra.append(lista);
             lista.append(miniatura,nombre_item,cantidad_item,precio_item,boton_borrar);
 
 
         // Sumar total
-        let listas = document.querySelectorAll(".lista");
-        for (let asd of listas){
-            pedido = pedido + parseInt(padre.querySelector("p").innerText*padre.querySelector("input").value);
-            console.log(pedido);
+        function sumar(){     
+            pedido = pedido + padre.querySelector("p").innerText*padre.querySelector("input").value;
+            return pedido;
+        }   
 
-        }
+        // Restar producto
+            let botones_borrar = document.querySelectorAll(".borrar");
+            for (let btn of botones_borrar){
+                
+                btn.addEventListener("click",quitar)
+        
+            }    
+
+        }         
+      }
+ }
+
+ //Función quitar: elimina un elemento de la lista y actualiza el total
+ function quitar(e){
+    let hijo = e.target;
+    let padre = hijo.parentNode;
+    let padre_contenido = document.querySelectorAll("p");
+    
+    padre.remove();
+
+    pedido = pedido - padre.childNodes[3].innerText;
+
+    if (pedido != 0){
+        total.textContent = `Su total es $ ${pedido}`;
+    }
+    else{
+        titulo_lista.innerHTML = ``;
+        total.innerHTML = ``;
+        rubros_lista.innerHTML = ``;
+    }
+
+    
+} 
 
 
 
-        }
-}}
+
+
 
 
 
