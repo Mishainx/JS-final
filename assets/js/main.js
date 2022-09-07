@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //Mostrar carrito
     mostrar_carrito()
-    
+
 
 });
 
@@ -124,10 +124,9 @@ function agregar_producto() {
 
             carrito_json = JSON.stringify(carrito);
             sessionStorage.setItem("carrito", carrito_json);
-       
+
             carrito_display.innerHTML = ``;
             suma_productos()
-            console.log(suma_productos());
             total.innerHTML = `Su total es ${suma_productos()}`;
             mostrar_carrito();
 
@@ -136,11 +135,11 @@ function agregar_producto() {
 }
 
 //Función mostrar carrito: parse carrito del local storage y renderiza los productos seleccionados
-function mostrar_carrito(){
-    let carrito_parse =sessionStorage.getItem("carrito")
+function mostrar_carrito() {
+    let carrito_parse = sessionStorage.getItem("carrito")
     carrito_parse = JSON.parse(carrito_parse)
 
-    carrito_parse.forEach(function(producto){
+    carrito_parse.forEach(function (producto) {
         const div_producto = document.createElement("div");
         div_producto.classList.add("item");
 
@@ -161,39 +160,42 @@ function mostrar_carrito(){
         btn_eliminar.classList.add("icofont-trash");
 
 
-        div_producto.append(img_producto,nombre_producto,cantidad_producto,subtotal_producto,btn_eliminar);
-        carrito_display.append(div_producto,total);
+        div_producto.append(img_producto, nombre_producto, cantidad_producto, subtotal_producto, btn_eliminar);
+        carrito_display.append(div_producto, total);
     })
     let botones_borrar = document.querySelectorAll(".icofont-trash")
-    for (let boton of botones_borrar){
-        boton.addEventListener("click",quitar);
+
+    for (let boton of botones_borrar) {
+        boton.addEventListener("click", quitar);
     }
     total.innerHTML = `Su total es ${suma_productos()}`;
 }
 
- //Función quitar: elimina un elemento de la lista y actualiza el total
- function quitar(e){
+//Función quitar: elimina un elemento de la lista y actualiza el total
+function quitar(e) {
     let hijo = e.target;
-    let padre = hijo.parentNode;    
+    let padre = hijo.parentNode;
     padre.remove();
+    let nodelist = document.querySelectorAll(".icofont-trash");
+
 }
 
 //función suma productos
-function suma_productos(){
-    let carrito_parse =sessionStorage.getItem("carrito");
+function suma_productos() {
+    let carrito_parse = sessionStorage.getItem("carrito");
     carrito_parse = JSON.parse(carrito_parse);
 
     let venta_total = carrito_parse.reduce(calcular_total, 0);
-    return(venta_total);
-        
+    return (venta_total);
+
 }
 
-function calcular_total (acu,producto){
+function calcular_total(acu, producto) {
     acu = acu + parseInt(producto.precio);
     return acu
 }
 
 
-let carrito_parse =sessionStorage.getItem("carrito");
+let carrito_parse = sessionStorage.getItem("carrito");
 carrito_parse = JSON.parse(carrito_parse);
-console.log(carrito_parse);
+carrito = carrito_parse

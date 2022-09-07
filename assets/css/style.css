@@ -28,6 +28,7 @@ header #carrito_icono {
   transition: all 0.5s ease;
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
   padding-top: 100px;
+  color: white;
 }
 .carrito .orden_pedido {
   padding: 100px 0px 20px 50px;
