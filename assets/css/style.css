@@ -80,4 +80,8 @@ header #carrito_icono {
 }
 .item .icofont-trash {
   cursor: pointer;
+}
+
+#total {
+  text-align: center;
 }/*# sourceMappingURL=style.css.map */

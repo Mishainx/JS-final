@@ -41,6 +41,7 @@ let lista_productos = document.getElementById("contenedor_productos");
 let carrito_icono = document.getElementById("carrito_icono");
 let carrito_display = document.getElementById("carrito");
 let main = document.getElementById("principal");
+let total = document.getElementById("total");
 
 carrito_icono.addEventListener("click", (e) => {
     carrito_display.classList.toggle("active")
@@ -59,6 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //Mostrar carrito
     mostrar_carrito()
+    
 
 });
 
@@ -124,7 +126,11 @@ function agregar_producto() {
             sessionStorage.setItem("carrito", carrito_json);
        
             carrito_display.innerHTML = ``;
+            suma_productos()
+            console.log(suma_productos());
+            total.innerHTML = `Su total es ${suma_productos()}`;
             mostrar_carrito();
+
         }
     }
 }
@@ -154,14 +160,15 @@ function mostrar_carrito(){
         const btn_eliminar = document.createElement("i");
         btn_eliminar.classList.add("icofont-trash");
 
+
         div_producto.append(img_producto,nombre_producto,cantidad_producto,subtotal_producto,btn_eliminar);
-        carrito_display.append(div_producto);
+        carrito_display.append(div_producto,total);
     })
     let botones_borrar = document.querySelectorAll(".icofont-trash")
     for (let boton of botones_borrar){
         boton.addEventListener("click",quitar);
     }
-    
+    total.innerHTML = `Su total es ${suma_productos()}`;
 }
 
  //Función quitar: elimina un elemento de la lista y actualiza el total
@@ -170,3 +177,23 @@ function mostrar_carrito(){
     let padre = hijo.parentNode;    
     padre.remove();
 }
+
+//función suma productos
+function suma_productos(){
+    let carrito_parse =sessionStorage.getItem("carrito");
+    carrito_parse = JSON.parse(carrito_parse);
+
+    let venta_total = carrito_parse.reduce(calcular_total, 0);
+    return(venta_total);
+        
+}
+
+function calcular_total (acu,producto){
+    acu = acu + parseInt(producto.precio);
+    return acu
+}
+
+
+let carrito_parse =sessionStorage.getItem("carrito");
+carrito_parse = JSON.parse(carrito_parse);
+console.log(carrito_parse);
