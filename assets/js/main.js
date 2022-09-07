@@ -177,22 +177,42 @@ function mostrar_carrito() {
     }
     total.innerHTML = `Su total es ${suma_productos()}`;
 }
-let array_trash = [];
+
 
 //Función quitar: elimina un elemento de la lista y actualiza el total
 function quitar(e) {
     let hijo = e.target;
     let padre = hijo.parentNode;
     padre.remove();
-    console.log(padre.childNodes[0].textContent);
-    console.log(carrito);
-    carrito.splice(parseInt(padre.childNodes[0].textContent),1);
-    console.log(carrito);
 
+
+    let resultado_find = carrito.find(buscar_id);
+    console.log(resultado_find);
+
+    function buscar_id(id){
+        return id.id == padre.childNodes[0].textContent;
+    }
+
+    console.log(carrito.indexOf(resultado_find));
+
+    carrito.splice(carrito.indexOf(resultado_find),1);
+
+
+
+    
     carrito_json = JSON.stringify(carrito);
     sessionStorage.setItem("carrito", carrito_json);
 
-
+     
+    if (suma_productos() != 0){
+        total.innerHTML = `<p>Su total es = ${suma_productos()}</p>`;
+       }
+       else{
+        total.innerHTML = ``;
+       }
+     
+    carrito_display.innerHTML = ``;
+    mostrar_carrito();
 }
 
 

@@ -84,7 +84,7 @@ header #carrito_icono {
 }
 
 .orden_lista {
-  display: n;
+  display: none;
 }
 
 #total {
