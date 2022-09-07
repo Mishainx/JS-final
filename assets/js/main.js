@@ -170,15 +170,15 @@ function mostrar_carrito() {
     }
     total.innerHTML = `Su total es ${suma_productos()}`;
 }
+let array_trash = [];
 
 //Función quitar: elimina un elemento de la lista y actualiza el total
 function quitar(e) {
     let hijo = e.target;
     let padre = hijo.parentNode;
     padre.remove();
-    let nodelist = document.querySelectorAll(".icofont-trash");
-
 }
+
 
 //función suma productos
 function suma_productos() {
@@ -194,8 +194,3 @@ function calcular_total(acu, producto) {
     acu = acu + parseInt(producto.precio);
     return acu
 }
-
-
-let carrito_parse = sessionStorage.getItem("carrito");
-carrito_parse = JSON.parse(carrito_parse);
-carrito = carrito_parse
