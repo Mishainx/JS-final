@@ -4,6 +4,53 @@
   box-sizing: border-box;
 }
 
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px;
+}
+header #carrito_icono {
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  margin: 40px 50px;
+}
+
+.carrito {
+  background-color: #1e4356;
+  width: 30vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  right: -600px;
+  display: none;
+  transition: all 0.5s ease;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  padding-top: 100px;
+}
+.carrito .orden_pedido {
+  padding: 100px 0px 20px 50px;
+}
+
+/*Estilos para agregar en javascript*/
+.active {
+  transform: translate(-600px);
+}
+
+.opacity {
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: all 0.5s ease;
+}
+
+.d-block {
+  display: block;
+}
+
+.w-70 {
+  width: 70vw;
+}
+
 .contenedor_productos {
   display: flex;
   flex-wrap: wrap;
@@ -13,26 +60,24 @@
 .tarjeta {
   display: flex;
   flex-direction: column;
-  width: 100px;
+  width: 200px;
   margin: 10px 10px;
+  padding: 20px;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 }
 .tarjeta img {
   margin: auto;
   max-width: 100%;
 }
 
-.lista, #rubros_lista {
+.item {
   display: flex;
-  justify-content: space-around;
-  text-align: center;
+  justify-content: space-evenly;
+  align-items: center;
 }
-.lista p, #rubros_lista p {
-  width: 30px;
+.item .item_img {
+  width: 50px;
 }
-.lista .miniatura, #rubros_lista .miniatura {
-  width: 30px;
-}
-
-#titulo_lista, #total {
-  text-align: center;
+.item .icofont-trash {
+  cursor: pointer;
 }/*# sourceMappingURL=style.css.map */

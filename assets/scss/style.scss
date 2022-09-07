@@ -4,42 +4,87 @@
     box-sizing: border-box;
 }
 
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px;
+    #carrito_icono{
+        cursor: pointer;
+        position: relative;
+        z-index: 1;
+        margin: 40px 50px;
+    }
+}
+
+
+.carrito{
+    background-color: #1e4356;
+    width: 30vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    right: -600px;
+    display: none;
+    transition: all .5s ease;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+    padding-top: 100px;
+
+    .orden_pedido{
+        padding: 100px 0px 20px 50px;
+    }
+}
+
+
+
+/*Estilos para agregar en javascript*/
+.active{
+    transform: translate(-600px);
+    
+}
+
+.opacity{
+    background-color: rgb(0, 0, 0, 0.5);
+    transition: all .5s ease;
+}
+
+.d-block{
+    display: block;
+}
+
+.w-70{
+    width: 70vw;
+}
+
 .contenedor_productos{
     display: flex;
     flex-wrap:wrap;
     justify-content: space-evenly;
+    
 }
 
 .tarjeta{
     display: flex;
     flex-direction: column;
-    width: 100px;
+    width: 200px;
     margin:10px 10px ;
+    padding: 20px;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
     img{
         margin: auto;
         max-width: 100%;
     }
 }
-
-.lista{
+.item{
     display: flex;
-    justify-content:space-around;
-    text-align: center;
-    p{
-        width: 30px;
-    
-    }
-        
-    .miniatura{
-        width: 30px;
+    justify-content: space-evenly;
+    align-items: center;
+    .item_img{
+        width: 50px;
     }
 
-}
+    .icofont-trash{
+        cursor: pointer;
+    }
 
-#titulo_lista, #total {
-    text-align: center;
-  }
-
-#rubros_lista{
-    @extend .lista;    
 }
