@@ -117,6 +117,7 @@ function agregar_producto() {
                 nombre: `${padre.querySelector("h3").innerText}`,
                 cantidad: `${padre.querySelector("input").value}`,
                 precio: `${padre.querySelector("p").innerText * padre.querySelector("input").value}`,
+                id: `${carrito.length}`,
             }
 
             //Agregar item al carrito
@@ -140,8 +141,14 @@ function mostrar_carrito() {
     carrito_parse = JSON.parse(carrito_parse)
 
     carrito_parse.forEach(function (producto) {
+
         const div_producto = document.createElement("div");
         div_producto.classList.add("item");
+
+        const orden_lista = document.createElement("p");
+        orden_lista.textContent = `${producto.id}`;
+        orden_lista.classList.add("orden_lista");
+
 
         const img_producto = document.createElement("img");
         img_producto.src = `${producto.imagen}`;
@@ -160,7 +167,7 @@ function mostrar_carrito() {
         btn_eliminar.classList.add("icofont-trash");
 
 
-        div_producto.append(img_producto, nombre_producto, cantidad_producto, subtotal_producto, btn_eliminar);
+        div_producto.append(orden_lista,img_producto, nombre_producto, cantidad_producto, subtotal_producto, btn_eliminar);
         carrito_display.append(div_producto, total);
     })
     let botones_borrar = document.querySelectorAll(".icofont-trash")
@@ -177,6 +184,15 @@ function quitar(e) {
     let hijo = e.target;
     let padre = hijo.parentNode;
     padre.remove();
+    console.log(padre.childNodes[0].textContent);
+    console.log(carrito);
+    carrito.splice(parseInt(padre.childNodes[0].textContent),1);
+    console.log(carrito);
+
+    carrito_json = JSON.stringify(carrito);
+    sessionStorage.setItem("carrito", carrito_json);
+
+
 }
 
 

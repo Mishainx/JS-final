@@ -83,6 +83,10 @@ header #carrito_icono {
   cursor: pointer;
 }
 
+.orden_lista {
+  display: n;
+}
+
 #total {
   text-align: center;
 }/*# sourceMappingURL=style.css.map */
