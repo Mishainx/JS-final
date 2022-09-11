@@ -1,7 +1,24 @@
+@font-face {
+    font-family: "tango";
+    src: url(../font/TangoSans.ttf);
+}
+
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: "tango";
+    color: #53557f;
+}
+
+html{
+    height: 100%;
+}
+
+body{
+    height: 100%;
+    //background-image: linear-gradient(115deg, #ffe5ff 0, #fcc4ff 25%, #b99df2 50%, #7f76b4 75%, #53557f 100%);
+    background-color: whitesmoke;
 }
 
 header{
@@ -9,19 +26,43 @@ header{
     justify-content: space-between;
     align-items: center;
     margin: 10px;
+    background-color: #53557f;
+    width: 100%;
+    margin: 0;
+    height: 60px;
+    h1{
+        color: white;
+        margin-left: 15px;
+    }
     #carrito_icono{
         cursor: pointer;
         position: relative;
         z-index: 1;
         margin: 40px 50px;
+        color: white;
+    }
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 10px;
+    margin-bottom: 10px;
+    h2{
+    text-align: center;
+    margin: 10px;
+    font-size: 1.5rem;
     }
 }
 
 
 .carrito{
-    background-color: #1e4356;
+    background-color: #7073a9;
     width: 30vw;
-    height: 100vh;
+    height: fit-content;
+        
     position: absolute;
     top: 0;
     right: -600px;
@@ -30,9 +71,13 @@ header{
     box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
     padding-top: 100px;
     color: white;
+        p{
+            color: white;
+        }
 
     .orden_pedido{
         padding: 100px 0px 20px 50px;
+        
     }
 }
 
@@ -50,27 +95,34 @@ header{
 }
 
 .d-block{
-    display: block;
+    display: inline-block;
+    min-height: 100vh;
 }
 
 .w-70{
     width: 70vw;
 }
 
+.carrito_blanco{
+    color:white;
+}
+
 .contenedor_productos{
     display: flex;
     flex-wrap:wrap;
     justify-content: space-evenly;
-    
+    max-width: 80%;    
 }
 
 .tarjeta{
     display: flex;
     flex-direction: column;
+    align-items: center;
     width: 200px;
     margin:10px 10px ;
     padding: 20px;
-    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+    box-shadow: #53557f 0px 5px 15px;
+    line-height: 25px;
     img{
         margin: auto;
         max-width: 100%;
@@ -78,14 +130,16 @@ header{
 }
 .item{
     display: flex;
-    justify-content: space-evenly;
     align-items: center;
+    justify-content: space-between;
+    padding: 0px 10px;
     .item_img{
         width: 50px;
     }
 
     .icofont-trash{
         cursor: pointer;
+        color: white;
     }
 
 }
@@ -96,4 +150,45 @@ header{
 
 #total{
     text-align: center;
+    color: white;
+    margin: 15px;
+    border: solid;
+    border-radius: 10px;
+    border-color: white;
+    padding: 5px;
+    width: auto;
 }
+
+.btn_comprar{
+    box-shadow: 0px 10px 11px -7px #53557f;
+            background: #616495;
+            border-radius:4px;
+            display:inline-block;
+            cursor:pointer;
+            color: white;
+            font-size:13px;
+            font-weight:bold;
+            padding:8px 20px;
+            margin-top: 10px;
+}
+
+footer{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    background-color: #53557f;
+    top: 40px;
+    justify-content: space-around;
+    padding-top: 10px;
+    div h3{
+        color: white;
+    }
+    div p{
+        color: white;
+    }
+    div i{
+        color: white;
+    }
+}
+
+

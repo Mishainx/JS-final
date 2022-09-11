@@ -16,7 +16,9 @@ let productos = [
     Cinturon = new Producto(2, "Cinturon", 1000, 10, "accesorio", `./assets/img/cinturon.png`),
     Bloque = new Producto(3, "Bloque", 500, 10, "principal", `./assets/img/bloques.png`),
     Porta = new Producto(4, "Porta", 1000, 10, "accesorio", `./assets/img/porta.png`),
-    Backbender = new Producto(5, "Backbender", 20000, 0, "principal", `./assets/img/backbender.png`)
+    Backbender = new Producto(5, "Backbender", 10000, 0, "principal", `./assets/img/backbender.png`),
+    Bolster = new Producto(6, "Bolster", 20000, 10, "principal", `./assets/img/bolster.png`)
+
 ];
 
 /*Mediante el método map se genera un nuevo array con el valor del producto +IVA.
@@ -80,11 +82,23 @@ function mostrar_productos() {
         titulo_producto.textContent = producto.nombre;
         titulo_producto.classList.add("titulo_producto");
 
-        let precio_producto = document.createElement("p");
-        precio_producto.textContent = producto.precio;
+        let precio_producto = document.createElement("div");
+        precio_producto.style.display = "flex"
+        precio_producto.style.gap = "2px"
+
+        let simbolo_moneda = document.createElement("p");
+        simbolo_moneda.textContent = "$";
+        let precio_p = document.createElement("p");
+        precio_p.textContent = producto.precio;
+        precio_p.classList.add("precio")
+        precio_producto.append(simbolo_moneda, precio_p);
 
         let cantidad_producto = document.createElement("input");
         cantidad_producto.innerText = "Cantidad";
+        cantidad_producto.placeholder = "cantidad"
+        cantidad_producto.style.textAlign = "center"
+        cantidad_producto.style.width = "50%"
+        cantidad_producto.style.color = "#53557f"
         cantidad_producto.classList.add("cantidad_producto");
 
         let btn_comprar = document.createElement("button");
@@ -116,7 +130,7 @@ function agregar_producto() {
                 imagen: `${padre.querySelector("img").src}`,
                 nombre: `${padre.querySelector("h3").innerText}`,
                 cantidad: `${padre.querySelector("input").value}`,
-                precio: `${padre.querySelector("p").innerText * padre.querySelector("input").value}`,
+                precio: `${padre.querySelector(".precio").innerText * padre.querySelector("input").value}`,
                 id: `${carrito.length}`,
             }
 
@@ -128,7 +142,7 @@ function agregar_producto() {
 
             carrito_display.innerHTML = ``;
             suma_productos()
-            total.innerHTML = `Su total es ${suma_productos()}`;
+            total.innerHTML = `Su total es $ ${suma_productos()}`;
             mostrar_carrito();
 
         }
@@ -175,7 +189,6 @@ function mostrar_carrito() {
     for (let boton of botones_borrar) {
         boton.addEventListener("click", quitar);
     }
-    total.innerHTML = `Su total es ${suma_productos()}`;
 }
 
 
@@ -205,7 +218,7 @@ function quitar(e) {
 
      
     if (suma_productos() != 0){
-        total.innerHTML = `<p>Su total es = ${suma_productos()}</p>`;
+        total.innerHTML = `<p>Su total es = $ ${suma_productos()}</p>`;
        }
        else{
         total.innerHTML = ``;
