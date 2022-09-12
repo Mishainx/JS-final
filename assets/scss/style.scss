@@ -188,8 +188,12 @@ footer{
     }
 }
 
-@media  (max-width: 992px){
+@media  (max-width: 768px){
     .carrito{
         width: 100%;
+    }
+
+    .tarjeta{
+        width: 90%;
     }
 };
