@@ -17,7 +17,7 @@ let productos = [
     Bloque = new Producto(3, "Bloque", 500, 10, "principal", `./assets/img/bloques.png`),
     Porta = new Producto(4, "Porta", 1000, 10, "accesorio", `./assets/img/porta.png`),
     Backbender = new Producto(5, "Backbender", 10000, 0, "principal", `./assets/img/backbender.png`),
-    Bolster = new Producto(6, "Bolster", 20000, 10, "principal", `./assets/img/bolster.png`)
+    Bolster = new Producto(6, "Bolster", 2000, 10, "principal", `./assets/img/bolster.png`)
 
 ];
 
