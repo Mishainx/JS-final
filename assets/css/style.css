@@ -116,6 +116,11 @@ main h2 {
   margin: auto;
   max-width: 100%;
 }
+.tarjeta .cantidad_producto {
+  text-align: center;
+  width: 50%;
+  color: #53557f;
+}
 
 .item {
   display: flex;

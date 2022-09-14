@@ -105,7 +105,7 @@ main{
     display: flex;
     flex-wrap:wrap;
     justify-content: space-evenly;
-    max-width: 80%;    
+    max-width: 80%; 
 }
 
 .tarjeta{
@@ -121,7 +121,13 @@ main{
         margin: auto;
         max-width: 100%;
     }
+    .cantidad_producto{
+        text-align: center;
+        width: 50%;
+        color: #53557f;
+    }
 }
+
 .item{
     display: flex;
     align-items: center;

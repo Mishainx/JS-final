@@ -36,6 +36,7 @@ function agregar_iva(producto) {
     }
 }
 
+
 /*Variables globales*/
 let carrito = [];
 let productos_iva = productos.map(agregar_iva);
@@ -96,9 +97,6 @@ function mostrar_productos() {
         let cantidad_producto = document.createElement("input");
         cantidad_producto.innerText = "Cantidad";
         cantidad_producto.placeholder = "cantidad"
-        cantidad_producto.style.textAlign = "center"
-        cantidad_producto.style.width = "50%"
-        cantidad_producto.style.color = "#53557f"
         cantidad_producto.classList.add("cantidad_producto");
 
         let btn_comprar = document.createElement("button");
@@ -216,13 +214,8 @@ function quitar(e) {
     carrito_json = JSON.stringify(carrito);
     sessionStorage.setItem("carrito", carrito_json);
 
-     
-    if (suma_productos() != 0){
-        total.innerHTML = `<p>Su total es = $ ${suma_productos()}</p>`;
-       }
-       else{
-        total.innerHTML = ``;
-       }
+    //Aplicación operador ternario
+    suma_productos != 0 ?  total.innerHTML = `<p>Su total es = $ ${suma_productos()}</p>` :  total.innerHTML = ``;
      
     carrito_display.innerHTML = ``;
     mostrar_carrito();
