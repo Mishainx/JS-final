@@ -266,7 +266,7 @@ function suma_productos(){
     function pago(){
         Swal.fire(
           'Su compra se ha realizado con éxito!',
-          'le enviaremos un email con el detalle.',
+          'Le enviaremos un email con el detalle.',
           'success'
         )
     }
