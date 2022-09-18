@@ -21,21 +21,6 @@ let productos = [
 
 ];
 
-/*Mediante el método map se genera un nuevo array con el valor del producto +IVA.
- El mismo será utilizado para la compra del usuario*/
-
-function agregar_iva(producto) {
-    let iva = producto.precio * 1.21;
-    return {
-        id: producto.id,
-        nombre: producto.nombre,
-        precio: iva,
-        stock: producto.stock,
-        categoria: producto.categoria,
-        imagen: producto.imagen
-    }
-}
-
 
 /*Variables globales*/
 let carrito = [];
@@ -45,12 +30,10 @@ let carrito_icono = document.getElementById("carrito_icono");
 let carrito_display = document.getElementById("carrito");
 let main = document.getElementById("principal");
 let total = document.getElementById("total");
-
-carrito_icono.addEventListener("click", (e) => {
-    carrito_display.classList.toggle("active")
-    carrito_display.classList.toggle("d-block")
-    main.classList.toggle("w-70")
-})
+let finalizar_compra = document.getElementById("finalizar_comprar")
+let restore = sessionStorage.getItem ("carrito");
+    restore = JSON.parse(restore);
+    (restore == null) ? (carrito=[]) : (carrito =[...restore]);
 
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -64,10 +47,16 @@ document.addEventListener("DOMContentLoaded", function () {
     //Mostrar carrito
     mostrar_carrito()
 
-
 });
 
 //Funciones
+
+// Evento click en ícono carrito
+carrito_icono.addEventListener("click", (e) => {
+    carrito_display.classList.toggle("active")
+    carrito_display.classList.toggle("d-block")
+    main.classList.toggle("w-70")
+})
 
 //Función mostrar productos: carga productos en el DOM.
 function mostrar_productos() {
@@ -83,9 +72,12 @@ function mostrar_productos() {
         titulo_producto.textContent = producto.nombre;
         titulo_producto.classList.add("titulo_producto");
 
+        let id_producto = document.createElement("p");
+        id_producto.textContent = producto.id;
+        id_producto.classList.add("id_producto");
+        
+
         let precio_producto = document.createElement("div");
-        precio_producto.style.display = "flex"
-        precio_producto.style.gap = "2px"
 
         let simbolo_moneda = document.createElement("p");
         simbolo_moneda.textContent = "$";
@@ -104,7 +96,7 @@ function mostrar_productos() {
         btn_comprar.classList.add("btn_comprar");
 
         //Agregar productos a la tarjeta
-        div_producto.append(img_producto, titulo_producto, precio_producto, cantidad_producto, btn_comprar);
+        div_producto.append(img_producto, titulo_producto, precio_producto, cantidad_producto, btn_comprar, id_producto);
 
         // Agregamos productos al DOM
         lista_productos.append(div_producto);
@@ -129,9 +121,8 @@ function agregar_producto() {
                 nombre: `${padre.querySelector("h3").innerText}`,
                 cantidad: `${padre.querySelector("input").value}`,
                 precio: `${padre.querySelector(".precio").innerText * padre.querySelector("input").value}`,
-                id: `${carrito.length}`,
+                id: `${padre.querySelector(".id_producto").innerText}`,
             }
-
             //Agregar item al carrito
             carrito.push(item);
 
@@ -139,9 +130,23 @@ function agregar_producto() {
             sessionStorage.setItem("carrito", carrito_json);
 
             carrito_display.innerHTML = ``;
-            suma_productos()
-            total.innerHTML = `Su total es $ ${suma_productos()}`;
             mostrar_carrito();
+            total.innerHTML = `Su total es ${suma_productos()}`;
+
+            Toastify({
+
+                text: "producto agregado",
+                position: "left",
+                gravity: "bottom",
+                style: {
+                    background: "linear-gradient(to right, #616495, #53557f)",
+                    fontSize: "10px",
+                    fontFamily: "tango",
+                  },
+                                
+                duration: 1500
+                
+                }).showToast();
 
         }
     }
@@ -152,42 +157,57 @@ function mostrar_carrito() {
     let carrito_parse = sessionStorage.getItem("carrito")
     carrito_parse = JSON.parse(carrito_parse)
 
-    carrito_parse.forEach(function (producto) {
 
-        const div_producto = document.createElement("div");
-        div_producto.classList.add("item");
+        if (carrito_parse != null){
+            for (let i=0; i<=productos.length;i++){
+                const resultado_filter = carrito_parse.filter((producto) => producto.id.includes (1+i));  
+                const venta_producto = resultado_filter.reduce((acu , producto) => acu + parseInt(producto.precio)  , 0);
+                const cantidad_producto = resultado_filter.reduce((acu , producto) => acu + parseInt(producto.cantidad)  , 0);
+                
+                if (venta_producto >0 ){
+                    const div_producto = document.createElement("div");
+                    div_producto.classList.add("item");
+                    
+                    const img_producto = document.createElement("img");
+                    img_producto.src = productos[i].imagen;
+                    img_producto.classList.add("item_img");
+    
+                    const nombre_producto = document.createElement("p");
+                    nombre_producto.textContent = productos[i].nombre;
+    
+                    const cantidad_prod = document.createElement("p");
+                    cantidad_prod.textContent = cantidad_producto;
+    
+                    const subtotal_producto = document.createElement("p");
+                    subtotal_producto.textContent = venta_producto;
+    
+                    const btn_eliminar = document.createElement("i");
+                    btn_eliminar.classList.add("icofont-trash");
+    
+                    const id_producto = document.createElement("p");
+                    id_producto.innerText = productos[i].id;
+                    id_producto.classList.add("id_producto");
+                    
+                    div_producto.append(img_producto,nombre_producto,cantidad_prod,subtotal_producto,btn_eliminar, id_producto)
+                    carrito_display.append(div_producto,total,finalizar_compra)
 
-        const orden_lista = document.createElement("p");
-        orden_lista.textContent = `${producto.id}`;
-        orden_lista.classList.add("orden_lista");
-
-
-        const img_producto = document.createElement("img");
-        img_producto.src = `${producto.imagen}`;
-        img_producto.classList.add("item_img");
-
-        const nombre_producto = document.createElement("p");
-        nombre_producto.textContent = `${producto.nombre}`;
-
-        const cantidad_producto = document.createElement("p");
-        cantidad_producto.textContent = `${producto.cantidad}`;
-
-        const subtotal_producto = document.createElement("p");
-        subtotal_producto.textContent = `${producto.precio}`;
-
-        const btn_eliminar = document.createElement("i");
-        btn_eliminar.classList.add("icofont-trash");
-
-
-        div_producto.append(orden_lista,img_producto, nombre_producto, cantidad_producto, subtotal_producto, btn_eliminar);
-        carrito_display.append(div_producto, total);
-    })
+                    total.innerHTML = `Su total es ${suma_productos()}`;
+                    finalizar_compra.innerHTML = `<button id="sweet_compra">Comprar</button>`
+                    finalizar_compra.classList.add ("btn_finalizar_comprar");
+                    
+                }
     let botones_borrar = document.querySelectorAll(".icofont-trash")
 
     for (let boton of botones_borrar) {
         boton.addEventListener("click", quitar);
     }
-}
+
+        }
+
+    }}  
+
+    
+
 
 
 //Función quitar: elimina un elemento de la lista y actualiza el total
@@ -195,44 +215,60 @@ function quitar(e) {
     let hijo = e.target;
     let padre = hijo.parentNode;
     padre.remove();
+    let tutu = carrito.length
 
+    for (let i=0; i< tutu ;i++){
+        let resultado_find = carrito.find(buscar_id);
+        console.log(carrito);
+        console.log(carrito.length)
+        console.log(carrito.indexOf(resultado_find))
+        if (resultado_find == undefined) {
+            console.log(resultado_find)
+            break;
+        }
 
-    let resultado_find = carrito.find(buscar_id);
-    console.log(resultado_find);
-
-    function buscar_id(id){
-        return id.id == padre.childNodes[0].textContent;
+        function buscar_id(producto){
+            return producto.id == padre.childNodes[5].textContent;     
+        }
+       let borrar_carrito = carrito.splice(carrito.indexOf(resultado_find),1);
     }
-
-    console.log(carrito.indexOf(resultado_find));
-
-    carrito.splice(carrito.indexOf(resultado_find),1);
-
-
-
-    
+    console.log(carrito);
     carrito_json = JSON.stringify(carrito);
     sessionStorage.setItem("carrito", carrito_json);
+    suma_productos() != 0 ?  total.innerHTML = `<p>Su total es = $ ${suma_productos()}</p>` :  total.innerHTML = ``;
+    if (suma_productos() ==0){
+        finalizar_compra.innerHTML = ``;
+    } 
 
-    //Aplicación operador ternario
-    suma_productos != 0 ?  total.innerHTML = `<p>Su total es = $ ${suma_productos()}</p>` :  total.innerHTML = ``;
-     
-    carrito_display.innerHTML = ``;
-    mostrar_carrito();
-}
-
-
-//función suma productos
-function suma_productos() {
-    let carrito_parse = sessionStorage.getItem("carrito");
-    carrito_parse = JSON.parse(carrito_parse);
-
-    let venta_total = carrito_parse.reduce(calcular_total, 0);
-    return (venta_total);
 
 }
 
-function calcular_total(acu, producto) {
-    acu = acu + parseInt(producto.precio);
-    return acu
+/*Función agregar IVA*/
+
+function agregar_iva(producto) {
+    let iva = producto.precio * 1.21;
+    return {
+        id: producto.id,
+        nombre: producto.nombre,
+        precio: iva,
+        stock: producto.stock,
+        categoria: producto.categoria,
+        imagen: producto.imagen
+    }
 }
+
+function suma_productos(){
+    return carrito.reduce((acu , producto) => acu + parseInt(producto.precio)  , 0);
+}
+
+    finalizar_compra.addEventListener("click", pago);
+
+    function pago(){
+        Swal.fire(
+          'Su compra se ha realizado con éxito!',
+          'le enviaremos un email con el detalle.',
+          'success'
+        )
+    }
+
+
