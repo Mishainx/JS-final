@@ -269,6 +269,8 @@ function suma_productos(){
           'Le enviaremos un email con el detalle.',
           'success'
         )
+
+    sessionStorage.removeItem("carrito");
     }
 
 
