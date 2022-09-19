@@ -1,3 +1,10 @@
+/* Desafío Librerías:
+
+1) Sweet Alert: Al comprar, sale un mensaje con un check de relevancia para indicar al usuario que la compra se realizó con éxito
+2) Toastify: una notificación sutil para indicar al usuario que el producto se agrego al corrito correctamente
+3) AOS: una sutil animación para cortar la estaticidad de la página
+*/
+
 /* Plano producto*/
 class Producto {
     constructor(id, nombre, precio, stock, categoria, imagen) {
