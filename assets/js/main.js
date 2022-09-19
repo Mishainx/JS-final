@@ -219,9 +219,6 @@ function quitar(e) {
 
     for (let i=0; i< tutu ;i++){
         let resultado_find = carrito.find(buscar_id);
-        console.log(carrito);
-        console.log(carrito.length)
-        console.log(carrito.indexOf(resultado_find))
         if (resultado_find == undefined) {
             console.log(resultado_find)
             break;
