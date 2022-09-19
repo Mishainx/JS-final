@@ -229,7 +229,6 @@ function quitar(e) {
         }
        let borrar_carrito = carrito.splice(carrito.indexOf(resultado_find),1);
     }
-    console.log(carrito);
     carrito_json = JSON.stringify(carrito);
     sessionStorage.setItem("carrito", carrito_json);
     suma_productos() != 0 ?  total.innerHTML = `<p>Su total es = $ ${suma_productos()}</p>` :  total.innerHTML = ``;
