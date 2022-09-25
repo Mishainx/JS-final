@@ -1,5 +1,4 @@
 /* Desafío Librerías:
-
 1) Sweet Alert: Al comprar, sale un mensaje con un check de relevancia para indicar al usuario que la compra se realizó con éxito
 2) Toastify: una notificación sutil para indicar al usuario que el producto se agrego al corrito correctamente
 3) AOS: una sutil animación para cortar la estaticidad de la página
@@ -37,7 +36,8 @@ let carrito_icono = document.getElementById("carrito_icono");
 let carrito_display = document.getElementById("carrito");
 let main = document.getElementById("principal");
 let total = document.getElementById("total");
-let finalizar_compra = document.getElementById("finalizar_comprar")
+let finalizar_compra = document.getElementById("finalizar_comprar");
+let clima = document.getElementById("contenedor_clima");
 let restore = sessionStorage.getItem ("carrito");
     restore = JSON.parse(restore);
     (restore == null) ? (carrito=[]) : (carrito =[...restore]);
@@ -259,7 +259,7 @@ function agregar_iva(producto) {
         imagen: producto.imagen
     }
 }
-
+console.log(carrito)
 function suma_productos(){
     return carrito.reduce((acu , producto) => acu + parseInt(producto.precio)  , 0);
 }
@@ -274,6 +274,19 @@ function suma_productos(){
         )
 
     sessionStorage.removeItem("carrito");
+    carrito = [];
     }
 
+
+
+let ciudad = "Buenos Aires"
+let api_key = "a5079f78cfd2c332ea073602e5e66262"
+let url = "https://api.openweathermap.org/data/2.5/weather?q="
+    
+fetch(url+ciudad+"&units=metric&appid="+api_key)
+    .then(response => response.json())
+    .then(data => {
+        clima.innerHTML =`<span class="temperatura">  ${data.name} ${data.main.temp }°</span>
+                          <img src="http://openweathermap.org/img/wn/${data.weather[0].icon}.png"><img>  `                          
+     })
 

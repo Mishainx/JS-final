@@ -40,6 +40,15 @@ header #carrito_icono {
   margin: 40px 50px;
   color: white;
 }
+header .clima {
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+header .clima span {
+  color: white;
+}
 
 main {
   display: flex;

@@ -41,7 +41,22 @@ header{
         margin: 40px 50px;
         color: white;
     }
+
+    .clima{
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        span{
+            color: white;
+        }
+
+    }
+
 }
+
+
 
 main{
     display: flex;
