@@ -210,6 +210,19 @@ footer div i {
   color: white;
 }
 
+.formulario {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  gap: 2px;
+}
+.formulario input {
+  width: 70%;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+
 @media (max-width: 768px) {
   header h1 {
     font-size: 15px;

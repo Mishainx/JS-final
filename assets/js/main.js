@@ -253,7 +253,6 @@ function agregar_iva(producto) {
         imagen: producto.imagen
     }
 }
-console.log(carrito)
 function suma_productos(){
     return carrito.reduce((acu , producto) => acu + parseInt(producto.precio)  , 0);
 }
@@ -261,26 +260,57 @@ function suma_productos(){
     finalizar_compra.addEventListener("click", pago);
 
     function pago(){
-        Swal.fire(
-          'Su compra se ha realizado con éxito!',
-          'Le enviaremos un email con el detalle.',
-          'success'
-        )
+        carrito_display.innerHTML = `<form action="" class="formulario" id="formulario_pago">
+        <p>Total a pagar $ ${suma_productos()}</p>
+        <input type="text" placeholder="Nombre" required>
+        <input type="text" placeholder="Apellido" required>
+        <input type="text" placeholder="DNI" required>
+        <input type="text" placeholder="Teléfono" required>
+        <input type="text" placeholder="N° de tarjeta" required>
+        <input type="text" placeholder="Código de seguridad" required>
+        <button type= "submit" id="boton_pagar">Comprar</button>
+    </form>
 
-    sessionStorage.removeItem("carrito");
-    carrito = [];
+    `;
+
+        let formulario_pago = document.getElementById("formulario_pago") 
+        formulario_pago.addEventListener("submit", handleSubmit)
+        
+        function handleSubmit(e){
+            e.preventDefault()
+        }
+
+        let boton_pagar = document.getElementById("boton_pagar");
+        boton_pagar.addEventListener("click", pagar)
+
+        function pagar(){   
+            Swal.fire(
+                'Su compra se ha realizado con éxito!',
+                'Le enviaremos un email con el detalle.',
+                'success' )
+
+            sessionStorage.removeItem("carrito");
+            carrito = [];
+            carrito_display.innerHTML = ``;    
+        }
     }
 
 
+        let ciudad = "Buenos Aires"
+        let api_key = "a5079f78cfd2c332ea073602e5e66262"
+        let url = "https://api.openweathermap.org/data/2.5/weather?q="
+            
+        fetch(url+ciudad+"&units=metric&appid="+api_key)
+            .then(response => response.json())
+            .then(data => {
+                clima.innerHTML =`<span class="temperatura">  ${data.name} ${data.main.temp }°</span>
+                                  <img src="http://openweathermap.org/img/wn/${data.weather[0].icon}.png"><img>  `                          
+             })    
 
-let ciudad = "Buenos Aires"
-let api_key = "a5079f78cfd2c332ea073602e5e66262"
-let url = "https://api.openweathermap.org/data/2.5/weather?q="
+
     
-fetch(url+ciudad+"&units=metric&appid="+api_key)
-    .then(response => response.json())
-    .then(data => {
-        clima.innerHTML =`<span class="temperatura">  ${data.name} ${data.main.temp }°</span>
-                          <img src="http://openweathermap.org/img/wn/${data.weather[0].icon}.png"><img>  `                          
-     })
+
+
+
+
 
