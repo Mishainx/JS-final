@@ -1,0 +1,15 @@
+footer{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    background-color: #53557f;
+    justify-content: space-around;
+    padding-top: 10px;
+    position: relative;
+    bottom: 0;
+    box-shadow: #53557f 0px 5px 15px;
+
+    div h3,p,i{
+        color: white;
+    }
+}

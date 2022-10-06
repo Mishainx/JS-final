@@ -1,0 +1,22 @@
+.active{
+    transform: translate(-600px);
+    
+}
+
+.opacity{
+    background-color: rgb(0, 0, 0, 0.5);
+    transition: all .5s ease;
+}
+
+.d-block{
+    display: inline-block;
+    min-height: 100vh;
+}
+
+.w-70{
+    width: 70vw;
+}
+
+.carrito_blanco{
+    color:white;
+}

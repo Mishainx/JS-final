@@ -12,19 +12,18 @@ class Producto {
 
 /*Lista de productos*/
 let productos = [
-    Mat = new Producto(1, "Mat", 2000, 10, "principal", `./assets/img/mat.png`),
-    Cinturon = new Producto(2, "Cinturon", 1000, 10, "accesorio", `./assets/img/cinturon.png`),
-    Bloque = new Producto(3, "Bloque", 500, 10, "principal", `./assets/img/bloques.png`),
-    Porta = new Producto(4, "Porta", 1000, 10, "accesorio", `./assets/img/porta.png`),
-    Backbender = new Producto(5, "Backbender", 10000, 0, "principal", `./assets/img/backbender.png`),
-    Bolster = new Producto(6, "Bolster", 2000, 10, "principal", `./assets/img/bolster.png`)
-
+    Mat = new Producto(1, "Mat", 2000, 1000, "principal", `./assets/img/mat.png`),
+    Cinturon = new Producto(2, "Cinturon", 1000, 1000, "accesorio", `./assets/img/cinturon.png`),
+    Bloque = new Producto(3, "Bloque", 500, 1000, "principal", `./assets/img/bloques.png`),
+    Porta = new Producto(4, "Porta", 1000, 1000, "accesorio", `./assets/img/porta.png`),
+    Backbender = new Producto(5, "Backbender", 10000, 1000, "principal", `./assets/img/backbender.png`),
+    Bolster = new Producto(6, "Bolster", 2000, 1000, "principal", `./assets/img/bolster.png`)
 ];
 
 
 /*Variables globales*/
 let carrito = [];
-let productos_iva = productos.map(agregar_iva);
+let productos_iva = productos.map(agregar_iva); // Mediante un map se agrega IVA a los productos
 let lista_productos = document.getElementById("contenedor_productos");
 let carrito_icono = document.getElementById("carrito_icono");
 let carrito_display = document.getElementById("carrito");
@@ -32,17 +31,19 @@ let main = document.getElementById("principal");
 let total = document.getElementById("total");
 let finalizar_compra = document.getElementById("finalizar_comprar");
 let clima = document.getElementById("contenedor_clima");
+
+//Check si hay productos en el sessión store de una sesión anterior para mostrarlos.
 let restore = sessionStorage.getItem ("carrito");
     restore = JSON.parse(restore);
     (restore == null) ? (carrito=[]) : (carrito =[...restore]);
 
-
+// Dom Content loaded
 document.addEventListener("DOMContentLoaded", function () {
 
     // Mostrar productos
     mostrar_productos()
 
-    //Agregar item
+    //Agregar producto
     agregar_producto()
 
     //Mostrar carrito
@@ -77,7 +78,6 @@ function mostrar_productos() {
         id_producto.textContent = producto.id;
         id_producto.classList.add("id_producto");
         
-
         let precio_producto = document.createElement("div");
 
         let simbolo_moneda = document.createElement("p");
@@ -90,6 +90,10 @@ function mostrar_productos() {
         let cantidad_producto = document.createElement("input");
         cantidad_producto.innerText = "Cantidad";
         cantidad_producto.placeholder = "cantidad"
+        cantidad_producto.type = "number"
+        cantidad_producto.min = 1;
+        cantidad_producto.max = 10;
+
         cantidad_producto.classList.add("cantidad_producto");
 
         let btn_comprar = document.createElement("button");
@@ -101,9 +105,7 @@ function mostrar_productos() {
 
         // Agregamos productos al DOM
         lista_productos.append(div_producto);
-
     })
-
 }
 
 //Función agregar_producto: Genera un item y lo agrega al carrito
@@ -124,6 +126,7 @@ function agregar_producto() {
                 precio: `${padre.querySelector(".precio").innerText * padre.querySelector("input").value}`,
                 id: `${padre.querySelector(".id_producto").innerText}`,
             }
+
             //Agregar item al carrito
             carrito.push(item);
 
@@ -148,7 +151,6 @@ function agregar_producto() {
                 duration: 1500
                 
                 }).showToast();
-
         }
     }
 }
@@ -194,8 +196,7 @@ function mostrar_carrito() {
 
                     total.innerHTML = `Su total es ${suma_productos()}`;
                     finalizar_compra.innerHTML = `<button id="sweet_compra">Comprar</button>`
-                    finalizar_compra.classList.add ("btn_finalizar_comprar");
-                    
+                    finalizar_compra.classList.add ("btn_finalizar_comprar");              
                 }
     let botones_borrar = document.querySelectorAll(".icofont-trash")
 
@@ -206,8 +207,6 @@ function mostrar_carrito() {
         }
 
     }}  
-
-    
 
 
 
@@ -221,7 +220,6 @@ function quitar(e) {
     for (let i=0; i< tutu ;i++){
         let resultado_find = carrito.find(buscar_id);
         if (resultado_find == undefined) {
-            console.log(resultado_find)
             break;
         }
 
@@ -235,9 +233,8 @@ function quitar(e) {
     suma_productos() != 0 ?  total.innerHTML = `<p>Su total es = $ ${suma_productos()}</p>` :  total.innerHTML = ``;
     if (suma_productos() ==0){
         finalizar_compra.innerHTML = ``;
+        sessionStorage.removeItem("carrito");
     } 
-
-
 }
 
 /*Función agregar IVA*/
@@ -253,49 +250,27 @@ function agregar_iva(producto) {
         imagen: producto.imagen
     }
 }
+
+//Calculo del total de productos agregados en función de la propiedad precio.
 function suma_productos(){
     return carrito.reduce((acu , producto) => acu + parseInt(producto.precio)  , 0);
 }
 
-    finalizar_compra.addEventListener("click", pago);
+// Finalizar compra
+finalizar_compra.addEventListener("click", pago);
+function pago(){  
+       
+    Swal.fire(
+    'Su compra se ha realizado con éxito!',
+    'Le enviaremos un email con el detalle.',
+    'success' )
+    
+    sessionStorage.removeItem("carrito");
+    carrito = [];
+    carrito_display.innerHTML = "";
+}
 
-    function pago(){
-        carrito_display.innerHTML = `<form action="" class="formulario" id="formulario_pago">
-        <p>Total a pagar $ ${suma_productos()}</p>
-        <input type="text" placeholder="Nombre" required>
-        <input type="text" placeholder="Apellido" required>
-        <input type="text" placeholder="DNI" required>
-        <input type="text" placeholder="Teléfono" required>
-        <input type="text" placeholder="N° de tarjeta" required>
-        <input type="text" placeholder="Código de seguridad" required>
-        <button type= "submit" id="boton_pagar">Comprar</button>
-    </form>
-
-    `;
-
-        let formulario_pago = document.getElementById("formulario_pago") 
-        formulario_pago.addEventListener("submit", handleSubmit)
-        
-        function handleSubmit(e){
-            e.preventDefault()
-        }
-
-        let boton_pagar = document.getElementById("boton_pagar");
-        boton_pagar.addEventListener("click", pagar)
-
-        function pagar(){   
-            Swal.fire(
-                'Su compra se ha realizado con éxito!',
-                'Le enviaremos un email con el detalle.',
-                'success' )
-
-            sessionStorage.removeItem("carrito");
-            carrito = [];
-            carrito_display.innerHTML = ``;    
-        }
-    }
-
-
+// Clima 
         let ciudad = "Buenos Aires"
         let api_key = "a5079f78cfd2c332ea073602e5e66262"
         let url = "https://api.openweathermap.org/data/2.5/weather?q="
@@ -306,11 +281,3 @@ function suma_productos(){
                 clima.innerHTML =`<span class="temperatura">  ${data.name} ${data.main.temp }°</span>
                                   <img src="http://openweathermap.org/img/wn/${data.weather[0].icon}.png"><img>  `                          
              })    
-
-
-    
-
-
-
-
-

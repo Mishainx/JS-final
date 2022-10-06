@@ -1,0 +1,30 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px;
+  background-color: #53557f;
+  width: 100%;
+  margin: 0;
+  height: 60px;
+}
+header h1 {
+  color: white;
+  margin-left: 15px;
+}
+header #carrito_icono {
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  margin: 40px 50px;
+  color: white;
+}
+header .clima {
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+header .clima span {
+  color: white;
+}/*# sourceMappingURL=header.css.map */
