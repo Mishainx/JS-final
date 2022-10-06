@@ -215,9 +215,9 @@ function quitar(e) {
     let hijo = e.target;
     let padre = hijo.parentNode;
     padre.remove();
-    let tutu = carrito.length
+    let cantidad_carrito = carrito.length
 
-    for (let i=0; i< tutu ;i++){
+    for (let i=0; i< cantidad_carrito ;i++){
         let resultado_find = carrito.find(buscar_id);
         if (resultado_find == undefined) {
             break;
