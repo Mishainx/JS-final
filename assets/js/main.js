@@ -270,14 +270,3 @@ function pago(){
     carrito_display.innerHTML = "";
 }
 
-// Clima 
-        let ciudad = "Buenos Aires"
-        let api_key = "a5079f78cfd2c332ea073602e5e66262"
-        let url = "https://api.openweathermap.org/data/2.5/weather?q="
-            
-        fetch(url+ciudad+"&units=metric&appid="+api_key)
-            .then(response => response.json())
-            .then(data => {
-                clima.innerHTML =`<span class="temperatura">  ${data.name} ${data.main.temp }°</span>
-                                  <img src="http://openweathermap.org/img/wn/${data.weather[0].icon}.png"><img>  `                          
-             })    
